@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace plan_your_heist
 {
@@ -13,20 +14,37 @@ namespace plan_your_heist
     {
         static void Main(string[] args)
         {
-            TeamMember member = new TeamMember();
+            List<TeamMember> teamMembers = new List<TeamMember>();
+            string memberName = "";
 
-            Console.Write("Enter team member's name: ");
-            member.Name = Console.ReadLine();
+            Console.Write("Enter team member's name (leave blank to stop): ");
+            memberName = Console.ReadLine();
 
-            Console.Write("Enter team member's skill level: ");
-            member.SkillLevel = int.Parse(Console.ReadLine());
+            while (memberName != "")
+            {
+                TeamMember member = new TeamMember();
+                member.Name = memberName;
 
-            Console.Write("Enter team member's courage factor: ");
-            member.CourageFactor = double.Parse(Console.ReadLine());
+                Console.Write("Enter team member's skill level: ");
+                member.SkillLevel = int.Parse(Console.ReadLine());
 
-            Console.WriteLine($"Name: {member.Name}");
-            Console.WriteLine($"Skill Level: {member.SkillLevel}");
-            Console.WriteLine($"Courage Factor: {member.CourageFactor}");
+                Console.Write("Enter team member's courage factor: ");
+                member.CourageFactor = double.Parse(Console.ReadLine());
+
+                teamMembers.Add(member);
+
+                Console.Write("Enter team member's name (leave blank to stop): ");
+                memberName = Console.ReadLine();
+            }
+
+            Console.WriteLine($"Number of team members: {teamMembers.Count}");
+
+            foreach (TeamMember member in teamMembers)
+            {
+                Console.WriteLine($"Name: {member.Name}");
+                Console.WriteLine($"Skill Level: {member.SkillLevel}");
+                Console.WriteLine($"Courage Factor: {member.CourageFactor}");
+            }
         }
     }
 }
