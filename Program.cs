@@ -47,12 +47,21 @@ namespace plan_your_heist
             // Set the bank's difficulty level to 100
             int bankDifficultyLevel = 100;
 
+            // Create a random number between -10 and 10 for the heist's luck value and add it to the bank's difficulty level
+            Random random = new Random();
+            int luckValue = random.Next(-10, 11);
+            bankDifficultyLevel += luckValue;
+
             // Calculate the sum of the team members' skill levels
             int teamSkillLevelSum = 0;
             foreach (TeamMember member in teamMembers)
             {
                 teamSkillLevelSum += member.SkillLevel;
             }
+
+            // Print out a report showing the team's combined skill level and the bank's difficulty level
+            Console.WriteLine($"Team Skill Level: {teamSkillLevelSum}");
+            Console.WriteLine($"Bank Difficulty Level: {bankDifficultyLevel}");
 
             // Compare the team's skill level sum with the bank's difficulty level and print out a success or failure message
             if (teamSkillLevelSum >= bankDifficultyLevel)
