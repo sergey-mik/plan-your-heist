@@ -44,13 +44,15 @@ namespace plan_your_heist
                 memberName = Console.ReadLine();
             }
 
-            // Set the bank's difficulty level to 100
-            int bankDifficultyLevel = 100;
+            // Prompt the user to enter the number of trial runs
+            Console.Write("Enter the number of trial runs: ");
+            int trialRuns = int.Parse(Console.ReadLine());
 
-            // Create a random number between -10 and 10 for the heist's luck value and add it to the bank's difficulty level
+            // Set the bank's base difficulty level to 100
+            int bankBaseDifficultyLevel = 100;
+
+            // Create a Random object to generate random luck values
             Random random = new Random();
-            int luckValue = random.Next(-10, 11);
-            bankDifficultyLevel += luckValue;
 
             // Calculate the sum of the team members' skill levels
             int teamSkillLevelSum = 0;
@@ -59,18 +61,29 @@ namespace plan_your_heist
                 teamSkillLevelSum += member.SkillLevel;
             }
 
-            // Print out a report showing the team's combined skill level and the bank's difficulty level
-            Console.WriteLine($"Team Skill Level: {teamSkillLevelSum}");
-            Console.WriteLine($"Bank Difficulty Level: {bankDifficultyLevel}");
+            // Run the scenario multiple times based on the user-entered number of trial runs
+            for (int i = 0; i < trialRuns; i++)
+            {
+                // Choose a new luck value for this trial run and add it to the bank's difficulty level
+                int luckValue = random.Next(-10, 11);
+                int bankDifficultyLevel = bankBaseDifficultyLevel + luckValue;
 
-            // Compare the team's skill level sum with the bank's difficulty level and print out a success or failure message
-            if (teamSkillLevelSum >= bankDifficultyLevel)
-            {
-                Console.WriteLine("Success! The team has enough skill to rob the bank.");
-            }
-            else
-            {
-                Console.WriteLine("Failure! The team doesn't have enough skill to rob the bank.");
+                // Print out a report showing the team's combined skill level and the bank's difficulty level for this trial run
+                Console.WriteLine($"Trial Run {i + 1}:");
+                Console.WriteLine($"Team Skill Level: {teamSkillLevelSum}");
+                Console.WriteLine($"Bank Difficulty Level: {bankDifficultyLevel}");
+
+                // Compare the team's skill level sum with the bank's difficulty level and print out a success or failure message for this trial run
+                if (teamSkillLevelSum >= bankDifficultyLevel)
+                {
+                    Console.WriteLine("Success! The team has enough skill to rob the bank.");
+                }
+                else
+                {
+                    Console.WriteLine("Failure! The team doesn't have enough skill to rob the bank.");
+                }
+
+                Console.WriteLine();
             }
         }
     }
