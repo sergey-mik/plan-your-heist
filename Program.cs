@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace plan_your_heist
 {
+    // Define a TeamMember class to represent a team member
     public class TeamMember
     {
         public string Name { get; set; }
@@ -14,14 +15,18 @@ namespace plan_your_heist
     {
         static void Main(string[] args)
         {
+            // Create a list to store the team members
             List<TeamMember> teamMembers = new List<TeamMember>();
             string memberName = "";
 
+            // Prompt the user to enter a team member's name
             Console.Write("Enter team member's name (leave blank to stop): ");
             memberName = Console.ReadLine();
 
+            // Keep prompting the user to enter team members until they enter a blank name
             while (memberName != "")
             {
+                // Create a new TeamMember object and set its properties
                 TeamMember member = new TeamMember();
                 member.Name = memberName;
 
@@ -31,19 +36,32 @@ namespace plan_your_heist
                 Console.Write("Enter team member's courage factor: ");
                 member.CourageFactor = double.Parse(Console.ReadLine());
 
+                // Add the new TeamMember object to the teamMembers list
                 teamMembers.Add(member);
 
+                // Prompt the user to enter another team member's name
                 Console.Write("Enter team member's name (leave blank to stop): ");
                 memberName = Console.ReadLine();
             }
 
-            Console.WriteLine($"Number of team members: {teamMembers.Count}");
+            // Set the bank's difficulty level to 100
+            int bankDifficultyLevel = 100;
 
+            // Calculate the sum of the team members' skill levels
+            int teamSkillLevelSum = 0;
             foreach (TeamMember member in teamMembers)
             {
-                Console.WriteLine($"Name: {member.Name}");
-                Console.WriteLine($"Skill Level: {member.SkillLevel}");
-                Console.WriteLine($"Courage Factor: {member.CourageFactor}");
+                teamSkillLevelSum += member.SkillLevel;
+            }
+
+            // Compare the team's skill level sum with the bank's difficulty level and print out a success or failure message
+            if (teamSkillLevelSum >= bankDifficultyLevel)
+            {
+                Console.WriteLine("Success! The team has enough skill to rob the bank.");
+            }
+            else
+            {
+                Console.WriteLine("Failure! The team doesn't have enough skill to rob the bank.");
             }
         }
     }
