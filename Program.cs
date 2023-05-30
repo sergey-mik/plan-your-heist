@@ -15,6 +15,10 @@ namespace plan_your_heist
     {
         static void Main(string[] args)
         {
+            // Prompt the user to enter the difficulty level of the bank
+            Console.Write("Enter the difficulty level of the bank: ");
+            int bankBaseDifficultyLevel = int.Parse(Console.ReadLine());
+
             // Create a list to store the team members
             List<TeamMember> teamMembers = new List<TeamMember>();
             string memberName = "";
@@ -48,9 +52,6 @@ namespace plan_your_heist
             Console.Write("Enter the number of trial runs: ");
             int trialRuns = int.Parse(Console.ReadLine());
 
-            // Set the bank's base difficulty level to 100
-            int bankBaseDifficultyLevel = 100;
-
             // Create a Random object to generate random luck values
             Random random = new Random();
 
@@ -60,6 +61,10 @@ namespace plan_your_heist
             {
                 teamSkillLevelSum += member.SkillLevel;
             }
+
+            // Initialize counters for successful and failed runs
+            int successfulRuns = 0;
+            int failedRuns = 0;
 
             // Run the scenario multiple times based on the user-entered number of trial runs
             for (int i = 0; i < trialRuns; i++)
@@ -77,14 +82,20 @@ namespace plan_your_heist
                 if (teamSkillLevelSum >= bankDifficultyLevel)
                 {
                     Console.WriteLine("Success! The team has enough skill to rob the bank.");
+                    successfulRuns++;
                 }
                 else
                 {
                     Console.WriteLine("Failure! The team doesn't have enough skill to rob the bank.");
+                    failedRuns++;
                 }
 
                 Console.WriteLine();
             }
+
+            // Print out a report showing the number of successful and failed runs
+            Console.WriteLine($"Successful Runs: {successfulRuns}");
+            Console.WriteLine($"Failed Runs: {failedRuns}");
         }
     }
 }
